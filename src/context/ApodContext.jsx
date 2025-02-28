@@ -14,7 +14,7 @@ export const ApodProvider = ({ children }) => {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/data/apod");
+      const res = await axios.get("http://star-gaze.vercel.app/api/data/apod");
       setData(res.data);
     } catch (error) {
       console.error("Error fetching APOD:", error);
@@ -25,7 +25,7 @@ export const ApodProvider = ({ children }) => {
   const gettodayApod = async () => {
     
     try {
-      const res = await axios.get(`http://localhost:3000/api/data/todayApod`);
+      const res = await axios.get(`http://star-gaze.vercel.app/api/data/todayApod`);
       setTodayApod(res.data);
     } catch (error) {
       console.error("Error fetching APOD:", error);
