@@ -28,7 +28,6 @@ export async function POST(NextRequest) {
         });
 
         const savedUser = await newUser.save();
-        console.log(savedUser);
 
         return NextResponse.json({ message: "User created successfully" }, {status:201});
 
