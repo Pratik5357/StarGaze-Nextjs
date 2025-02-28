@@ -1,27 +1,24 @@
-import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
-export { default } from 'next-auth/middleware';
+import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(req) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    const url = req.nextUrl;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const url = req.nextUrl.clone();
 
-    if (!token && url.pathname !== '/sign-in' && url.pathname !== '/signup') {
-        // Delay redirection
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        return NextResponse.redirect(new URL('/sign-in', req.url));
-    }
-    return NextResponse.next();
+  // If no token, redirect to sign-in (except for public routes)
+  if (!token && url.pathname !== "/sign-in" && url.pathname !== "/signup") {
+    url.pathname = "/sign-in";
+    return NextResponse.redirect(url);
+  }
+
+  // If token exists, allow access
+  return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// Protect only the routes that require authentication
 export const config = {
-    matcher: [
-        '/sign-in',
-        '/signup',
-        '/gallery',
-        '/gallery/:path*',
-        '/news',
-    ],
+  matcher: [
+    "/gallery/:path*",
+    "/news",
+  ],
 };
