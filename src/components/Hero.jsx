@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const texts = [
-    "Unveiling the Universe’s Secrets...",
+    "Unveiling the Universe’s Secrets....",
     "A New Cosmic Wonder Every Day.",
     "Your Window to the Stars.",
   ];
