@@ -18,6 +18,8 @@ export async function middleware(req) {
 // Protect only the routes that require authentication
 export const config = {
   matcher: [
+    "/sign-in",
+    "/sign-up",
     "/gallery/:path*",
     "/news",
   ],
