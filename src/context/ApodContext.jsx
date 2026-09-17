@@ -1,50 +1,58 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-// Create Context
-const ApodContext = createContext();
+const ApodContext = createContext({
+  data: [],
+  todayApod: null,
+  error: null,
+  loading: true,
+  refresh: async () => {},
+});
 
-// Create Provider Component
 export const ApodProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [todayApod, setTodayApod] = useState(null);
   const [error, setError] = useState(null);
-  const [todayApod, setTodayApod ] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const getData = async () => {
-    try {
-      const res = await axios.get("https://star-gaze.vercel.app/api/data/apod");
-      setData(res.data);
-    } catch (error) {
-      console.error("Error fetching APOD:", error);
-      setError("Failed to load APOD data.");
-    } 
-  };
+  const loadApodData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-  const gettodayApod = async () => {
-    
     try {
-      const res = await axios.get(`https://star-gaze.vercel.app/api/data/todayApod`);
-      setTodayApod(res.data);
-    } catch (error) {
-      console.error("Error fetching APOD:", error);
-      setError("Failed to load APOD data.");
+      const [archiveRes, todayRes] = await Promise.all([
+        axios.get("/api/data/apod"),
+        axios.get("/api/data/todayApod"),
+      ]);
+
+      if (Array.isArray(archiveRes.data)) {
+        setData(archiveRes.data);
+      }
+
+      if (todayRes.data && !todayRes.data.error) {
+        setTodayApod(todayRes.data);
+      }
+    } catch (err) {
+      console.error("Error fetching APOD:", err);
+      setError("Failed to load space imagery. Please refresh.");
+    } finally {
+      setLoading(false);
     }
-  }
-  
-
-  useEffect(() => {
-    getData();
-    gettodayApod();
   }, []);
 
+  useEffect(() => {
+    loadApodData();
+  }, [loadApodData]);
+
   return (
-    <ApodContext.Provider value={{ data, todayApod, error }}>
+    <ApodContext.Provider
+      value={{ data, todayApod, error, loading, refresh: loadApodData }}
+    >
       {children}
     </ApodContext.Provider>
   );
 };
 
-// Custom Hook for using Apod Context
 export const useApod = () => useContext(ApodContext);

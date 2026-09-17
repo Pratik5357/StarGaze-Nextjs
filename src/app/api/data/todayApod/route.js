@@ -1,19 +1,15 @@
-import { dbConnect } from "@/dbConfig/dbConfig";
-import Apod from "@/models/apodModel";
-import axios from "axios";
 import { NextResponse } from "next/server";
+import { getTodayApod } from "@/lib/apodService";
 
-await dbConnect();
-
-export async function GET(req) {
-
-    let response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NEXT_PUBLIC_NASA_API}`);
-    const newApod = response.data;
-    let apod = await Apod.findOne({ date: newApod.date });
-    if (!apod) {
-        apod = new Apod(newApod);
-        await apod.save();
-    }
-    
-    return NextResponse.json(newApod);
+export async function GET() {
+  try {
+    const apod = await getTodayApod();
+    return NextResponse.json(apod);
+  } catch (error) {
+    console.error("todayApod error:", error?.response?.data || error.message);
+    return NextResponse.json(
+      { error: "Failed to load today's APOD from NASA." },
+      { status: 502 }
+    );
+  }
 }

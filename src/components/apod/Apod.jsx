@@ -3,58 +3,64 @@
 import Image from "next/image";
 import { useApod } from "@/context/ApodContext";
 
-const Apod = () => {
-  const { todayApod } = useApod();
+export default function Apod() {
+  const { todayApod, loading } = useApod();
+
+  if (loading && !todayApod) {
+    return <p className="label-caps text-white/40 py-8">LOADING CAPTION…</p>;
+  }
 
   if (!todayApod) {
     return (
-      <div className="flex justify-center items-center h-full">
-        <p className="text-gray-300 text-lg">Loading...</p>
-      </div>
+      <p className="label-caps text-white/40 py-8">
+        TODAY&apos;S FRAME COULD NOT BE LOADED
+      </p>
     );
   }
 
+  const imageSrc =
+    todayApod.media_type === "image"
+      ? todayApod.hdurl || todayApod.url
+      : null;
+
   return (
-    <div className="relative flex flex-col md:flex-row items-center md:items-start justify-center gap-8 md:gap-12 px-4 py-10 max-md:py-20">
-      {/* Media Container */}
-      <div className="relative w-full max-w-md md:max-w-lg lg:max-w-xl h-60 md:h-80 lg:h-96">
-        {/* Conditionally Render Image or Video */}
-        {todayApod.media_type === "image" ? (
-          <Image
-            src={todayApod.hdurl}
-            alt={todayApod.title}
-            fill
-            className="rounded-lg min-h-[600px] max-md:min-h-[250px] shadow-lg border border-white/20"
-            priority
-            unoptimized
-          />
-        ) : todayApod.media_type === "video" ? (
-          <iframe
-            src={todayApod.url}
-            title={todayApod.title}
-            allowFullScreen
-            className="w-full h-full rounded-lg shadow-lg border border-white/20"
-          />
-        ) : (
-          <p className="text-gray-300 text-lg">Unsupported Media Type</p>
-        )}
+    <article className="grid lg:grid-cols-2 gap-0 border-2 border-white">
+      <div className="film-window">
+        <div className="perf-edge" aria-hidden />
+        <div className="relative aspect-[4/3] bg-black">
+          {imageSrc ? (
+            <Image
+              src={imageSrc}
+              alt={todayApod.title}
+              fill
+              unoptimized
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          ) : (
+            <iframe
+              src={todayApod.url}
+              title={todayApod.title}
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          )}
+        </div>
+        <div className="perf-edge perf-edge-bottom" aria-hidden />
       </div>
 
-      {/* APOD Details */}
-      <div className="w-full max-w-md md:max-w-lg bg-white/10 backdrop-blur-lg p-6 md:p-8 rounded-lg shadow-xl border border-white/20 text-white">
-        <h2 className="text-3xl font-bold text-[#A294F9] selection:text-white selection:bg-[#A294F9]">
+      <div className="p-6 md:p-8 bg-black text-white border-l-0 lg:border-l-2 border-white">
+        <h3 className="text-xl md:text-2xl font-bold uppercase leading-tight">
           {todayApod.title}
-        </h2>
-        <p className="text-sm text-gray-400 mt-2">{todayApod.date}</p>
-        <p className="text-gray-300 mt-4">{todayApod.explanation}</p>
-
-        {/* NASA Credit */}
-        <p className="text-gray-400 text-sm mt-4">
-          <span className="font-semibold">Credit:</span> {todayApod.copyright || "NASA / Public Domain"}
+        </h3>
+        <p className="mt-3 label-caps text-[#e85d04]">{todayApod.date}</p>
+        <p className="mt-6 text-white/80 leading-relaxed max-w-prose">
+          {todayApod.explanation}
+        </p>
+        <p className="mt-8 pt-4 border-t border-white/20 label-caps text-white/50 text-[11px]">
+          CREDIT: {todayApod.copyright || "NASA / PUBLIC DOMAIN"}
         </p>
       </div>
-    </div>
+    </article>
   );
-};
-
-export default Apod;
+}

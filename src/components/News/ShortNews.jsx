@@ -1,74 +1,62 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 
-const ShortNews = () => {
+export default function ShortNews() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.spaceflightnewsapi.net/v4/articles/?limit=6"
-        );
-        setNews(response.data.results);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      }
-    };
-
-    fetchNews();
+    axios
+      .get("https://api.spaceflightnewsapi.net/v4/articles/?limit=6")
+      .then((res) => setNews(res.data.results))
+      .catch((err) => console.error("News fetch failed:", err));
   }, []);
 
-  if (!news.length) {
-    return (
-      <div className="flex justify-center items-center h-40">
-        <p className="text-gray-300 text-lg">Loading news...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full py-10 px-10 max-md:px-6">
-      <h1 className="text-4xl font-bold text-[#A294F9] text-center mb-16">
-        Latest Space News
-      </h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((article) => (
-          <div key={article.id} className="bg-white/10 p-4 rounded-lg shadow-lg border border-white/20">
-            {/* News Image */}
-            <div className="relative w-full h-48 rounded-lg overflow-hidden">
-              <Image
-                src={article.image_url}
-                alt={article.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            {/* News Content */}
-            <div className="mt-4">
-              <h2 className="text-lg font-semibold text-white">{article.title}</h2>
-              <p className="text-sm text-gray-400 mt-1">{new Date(article.published_at).toDateString()}</p>
-              <p className="text-gray-300 mt-2 text-sm">{article.summary.slice(0, 100)}...</p>
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#A294F9] hover:underline mt-3 block"
-              >
-                Read More →
-              </a>
-            </div>
-          </div>
-        ))}
+    <div className="px-4 md:px-10 py-10 max-w-6xl mx-auto">
+      <div className="flex items-end justify-between gap-4 mb-8">
+        <h2 className="label-caps text-[#e85d04]">HUNG TRIMS</h2>
+        <Link href="/news" className="label-caps text-white/60 hover:text-[#e85d04]">
+          ALL HEADLINES →
+        </Link>
       </div>
+
+      {!news.length ? (
+        <p className="label-caps text-white/40">LOADING HEADLINES…</p>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {news.map((article) => (
+            <a
+              key={article.id}
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hung-trim group block"
+            >
+              <div className="relative h-36 overflow-hidden">
+                <Image
+                  src={article.image_url}
+                  alt={article.title}
+                  fill
+                  className="object-cover group-hover:opacity-90 transition-opacity"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold uppercase text-sm leading-snug text-white group-hover:text-[#e85d04] transition-colors line-clamp-2">
+                  {article.title}
+                </h3>
+                <p className="mt-2 label-caps text-[10px] text-white/50">
+                  {new Date(article.published_at).toLocaleDateString()}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
-};
-
-export default ShortNews;
+}

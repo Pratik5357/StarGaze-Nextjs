@@ -1,16 +1,15 @@
-import { dbConnect } from "@/dbConfig/dbConfig";
-import Apod from "@/models/apodModel";
-import axios from "axios";
 import { NextResponse } from "next/server";
+import { getApodArchive } from "@/lib/apodService";
 
-await dbConnect();
-
-export async function GET(req) {
-    const apods = await Apod.find();
-
-    if(!apods){
-        return NextResponse.error("Error fetching APOD");
-    }
-    
+export async function GET() {
+  try {
+    const apods = await getApodArchive();
     return NextResponse.json(apods);
+  } catch (error) {
+    console.error("apod archive error:", error?.response?.data || error.message);
+    return NextResponse.json(
+      { error: "Failed to load APOD archive." },
+      { status: 502 }
+    );
+  }
 }

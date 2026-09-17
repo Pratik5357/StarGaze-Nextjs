@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-16T13:15:00.000+05:30",
+  "title": "Design System: Stargaze",
+  "extensions": {
+    "colorMeta": {
+      "void": {
+        "role": "neutral",
+        "displayName": "Void",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "oklch(5% 0 0)",
+          "oklch(10% 0 0)",
+          "oklch(15% 0 0)",
+          "oklch(20% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(30% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(40% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(50% 0 0)"
+        ]
+      },
+      "flag-orange": {
+        "role": "primary",
+        "displayName": "Flag Orange",
+        "canonical": "#e85d04",
+        "tonalRamp": [
+          "oklch(22% 0.08 45)",
+          "oklch(30% 0.12 45)",
+          "oklch(38% 0.15 45)",
+          "oklch(46% 0.17 45)",
+          "oklch(54% 0.19 45)",
+          "oklch(62% 0.19 45)",
+          "oklch(70% 0.17 45)",
+          "oklch(78% 0.14 45)",
+          "oklch(86% 0.10 45)",
+          "oklch(94% 0.06 45)"
+        ]
+      },
+      "flag-orange-bright": {
+        "role": "primary",
+        "displayName": "Flag Orange Bright",
+        "canonical": "#ff7a1a",
+        "tonalRamp": [
+          "oklch(28% 0.10 55)",
+          "oklch(36% 0.13 55)",
+          "oklch(44% 0.15 55)",
+          "oklch(52% 0.17 55)",
+          "oklch(60% 0.18 55)",
+          "oklch(68% 0.18 55)",
+          "oklch(76% 0.16 55)",
+          "oklch(84% 0.12 55)",
+          "oklch(92% 0.08 55)",
+          "oklch(96% 0.04 55)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(75% 0 0)",
+          "oklch(85% 0 0)",
+          "oklch(92% 0 0)",
+          "oklch(100% 0 0)"
+        ]
+      },
+      "border-soft": {
+        "role": "neutral",
+        "displayName": "Border Soft",
+        "canonical": "rgba(255, 255, 255, 0.20)",
+        "tonalRamp": [
+          "rgba(255,255,255,0.04)",
+          "rgba(255,255,255,0.08)",
+          "rgba(255,255,255,0.12)",
+          "rgba(255,255,255,0.16)",
+          "rgba(255,255,255,0.20)",
+          "rgba(255,255,255,0.30)",
+          "rgba(255,255,255,0.40)",
+          "rgba(255,255,255,0.55)",
+          "rgba(255,255,255,0.70)",
+          "rgba(255,255,255,0.85)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles — Archive Strip, Headlines, About."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Hero flagged-frame title and gallery detail headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "APOD caption titles and hung-trim article headlines."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanations and summaries at white/80 on black."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Bench kickers, nav links, dates, and form labels via .label-caps."
+      }
+    },
+    "shadows": [
+      {
+        "name": "tape-flag",
+        "value": "0 1px 0 rgba(0, 0, 0, 0.4)",
+        "purpose": "Subtle lift on orange tape flags atop film windows."
+      },
+      {
+        "name": "frame-active-ring",
+        "value": "0 0 0 2px #e85d04",
+        "purpose": "Active film-frame selection ring."
+      },
+      {
+        "name": "film-window-inset",
+        "value": "inset 0 0 0 2px #000000",
+        "purpose": "Void border inside white film-window matte."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Default ease-out for hovers and border transitions."
+      },
+      {
+        "name": "flag-pulse",
+        "value": "flag-pulse 3s ease-in-out infinite",
+        "purpose": "Subtle opacity pulse on active tape flags."
+      },
+      {
+        "name": "transition-colors",
+        "value": "color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out",
+        "purpose": "Standard state transition on links, buttons, and hung trims."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main bench CTA — flag orange fill, black uppercase text.",
+      "html": "<button class=\"ds-btn-primary\">SCRUB ARCHIVE</button>",
+      "css": ".ds-btn-primary { display: block; width: 100%; padding: 12px 0; background: #e85d04; color: #000000; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s ease-out; } .ds-btn-primary:hover { background: #ff7a1a; } .ds-btn-primary:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary hero CTA with white border.",
+      "html": "<button class=\"ds-btn-outline\">HEADLINES</button>",
+      "css": ".ds-btn-outline { display: block; width: 100%; padding: 12px 0; background: transparent; color: #ffffff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; border: 2px solid #ffffff; cursor: pointer; transition: color 0.2s ease-out, border-color 0.2s ease-out; } .ds-btn-outline:hover { color: #e85d04; border-color: #e85d04; } .ds-btn-outline:focus-visible { outline: 2px solid #e85d04; outline-offset: 2px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Top navbar with uppercase bench labels.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-logo\" href=\"/\">Stargaze</a><ul class=\"ds-nav-links\"><li><a class=\"ds-nav-link ds-nav-link--active\" href=\"/\">SELECT</a></li><li><a class=\"ds-nav-link\" href=\"/gallery\">ARCHIVE</a></li><li><a class=\"ds-nav-link\" href=\"/news\">HEADLINES</a></li><li><a class=\"ds-nav-link\" href=\"/about\">ABOUT</a></li><li><a class=\"ds-nav-auth\" href=\"/sign-in\">SIGN IN</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 40px; background: #000000; border-bottom: 2px solid #e85d04; font-family: 'Barlow Condensed', sans-serif; } .ds-nav-logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; text-decoration: none; } .ds-nav-links { display: flex; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0; } .ds-nav-link { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s ease-out; } .ds-nav-link:hover { color: #ffffff; } .ds-nav-link--active { color: #e85d04; } .ds-nav-auth { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; text-decoration: none; padding: 4px 12px; border: 1px solid rgba(255,255,255,0.4); transition: color 0.2s ease-out, border-color 0.2s ease-out; } .ds-nav-auth:hover { color: #e85d04; border-color: #e85d04; }"
+    },
+    {
+      "name": "Film Window",
+      "kind": "custom",
+      "refersTo": "card-hung-trim",
+      "description": "Flagged APOD frame with perforated edges and orange tape.",
+      "html": "<div class=\"ds-film-window\"><div class=\"ds-tape-flag\" aria-hidden=\"true\"></div><div class=\"ds-perf-edge\"></div><div class=\"ds-film-aperture\"></div><div class=\"ds-perf-edge ds-perf-edge--bottom\"></div></div>",
+      "css": ".ds-film-window { position: relative; background: #ffffff; color: #000000; } .ds-film-window::before { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px #000000; pointer-events: none; z-index: 2; } .ds-tape-flag { position: absolute; top: -1px; left: 24px; width: 48px; height: 18px; background: #e85d04; transform: rotate(-2deg); z-index: 10; box-shadow: 0 1px 0 rgba(0,0,0,0.4); } .ds-tape-flag::after { content: ''; position: absolute; right: -6px; top: 0; width: 12px; height: 100%; background: #e85d04; clip-path: polygon(0 0, 100% 50%, 0 100%); } .ds-perf-edge { height: 8px; background-image: repeating-linear-gradient(90deg, #000000 0, #000000 6px, transparent 6px, transparent 14px); background-size: 14px 8px; } .ds-perf-edge--bottom { transform: rotate(180deg); } .ds-film-aperture { aspect-ratio: 16/10; background: #000000; }"
+    },
+    {
+      "name": "Film Frame",
+      "kind": "custom",
+      "refersTo": "nav-link-active",
+      "description": "Single frame on the horizontal select rail.",
+      "html": "<button class=\"ds-film-frame ds-film-frame--active\" type=\"button\"><div class=\"ds-film-frame-inner\"><div class=\"ds-tape-flag-sm\" aria-hidden=\"true\"></div></div><span class=\"ds-film-frame-date\">2026-09-16</span></button>",
+      "css": ".ds-film-frame { flex: 0 0 auto; width: 200px; padding: 8px 4px; border: none; background: transparent; text-align: left; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; } .ds-film-frame-inner { position: relative; aspect-ratio: 4/3; background: #000000; border: 2px solid #ffffff; } .ds-film-frame--active .ds-film-frame-inner { border-color: #e85d04; box-shadow: 0 0 0 2px #e85d04; } .ds-tape-flag-sm { position: absolute; top: -1px; left: 12px; width: 36px; height: 14px; background: #e85d04; transform: rotate(-2deg); z-index: 2; } .ds-film-frame-date { display: block; margin-top: 8px; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); }"
+    },
+    {
+      "name": "Hung Trim",
+      "kind": "card",
+      "refersTo": "card-hung-trim",
+      "description": "News article card pinned below the bench.",
+      "html": "<a class=\"ds-hung-trim\" href=\"#\"><div class=\"ds-hung-trim-img\"></div><div class=\"ds-hung-trim-body\"><h3 class=\"ds-hung-trim-title\">Artemis Mission Update</h3><time class=\"ds-hung-trim-date\">September 16, 2026</time></div></a>",
+      "css": ".ds-hung-trim { position: relative; display: block; border: 2px solid #ffffff; background: #000000; text-decoration: none; transition: border-color 0.2s ease-out; font-family: 'Barlow Condensed', sans-serif; } .ds-hung-trim::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 2px; height: 10px; background: #ffffff; } .ds-hung-trim:hover { border-color: #e85d04; } .ds-hung-trim-img { height: 144px; background: #111111; } .ds-hung-trim-body { padding: 16px; } .ds-hung-trim-title { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; line-height: 1.375; color: #ffffff; margin: 0; transition: color 0.2s ease-out; } .ds-hung-trim:hover .ds-hung-trim-title { color: #e85d04; } .ds-hung-trim-date { display: block; margin-top: 8px; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Archive title search with flag-orange focus border.",
+      "html": "<input class=\"ds-input-search\" type=\"text\" placeholder=\"SEARCH BY TITLE\" aria-label=\"Search archive\" />",
+      "css": ".ds-input-search { width: 100%; max-width: 28rem; padding: 12px 16px; background: #000000; border: 2px solid #ffffff; color: #ffffff; font-family: 'Barlow Condensed', sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; outline: none; } .ds-input-search::placeholder { color: rgba(255,255,255,0.35); } .ds-input-search:focus { border-color: #e85d04; }"
+    },
+    {
+      "name": "Auth Form Panel",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Sign-in / sign-up credentials panel.",
+      "html": "<div class=\"ds-auth-panel\"><h2 class=\"ds-auth-title\">Credentials</h2><label class=\"ds-auth-label\">Email</label><input class=\"ds-auth-input\" type=\"email\" placeholder=\"you@example.com\" /><label class=\"ds-auth-label\">Password</label><input class=\"ds-auth-input\" type=\"password\" placeholder=\"••••••••\" /><button class=\"ds-btn-primary ds-auth-submit\">Sign in</button></div>",
+      "css": ".ds-auth-panel { width: 100%; max-width: 28rem; padding: 32px; background: #000000; border: 2px solid #ffffff; font-family: 'Barlow Condensed', sans-serif; } .ds-auth-title { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; color: #ffffff; text-align: center; margin: 0 0 32px 0; } .ds-auth-label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; } .ds-auth-input { width: 100%; padding: 12px 16px; margin-bottom: 20px; background: #000000; border: 2px solid #ffffff; color: #ffffff; font-family: 'Barlow Condensed', sans-serif; outline: none; } .ds-auth-input::placeholder { color: rgba(255,255,255,0.35); } .ds-auth-input:focus { border-color: #e85d04; } .ds-auth-submit { margin-top: 4px; }"
+    },
+    {
+      "name": "Section Kicker",
+      "kind": "custom",
+      "refersTo": "flag-orange",
+      "description": "Bench section label above content blocks.",
+      "html": "<h2 class=\"ds-section-kicker\">CAPTION WINDOW</h2>",
+      "css": ".ds-section-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #e85d04; margin: 0 0 24px 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Film Cutting Bench",
+    "overview": "Stargaze is an analog editing bench for cosmic imagery — today's APOD is the frame flagged with orange tape on a perforated select rail; the archive is the strip you scrub frame by frame; headlines hang below like trims pinned to the bench. The atmosphere is brutally editorial: true black ground, flag orange ink, white type, and a persistent film-grain overlay. NASA photography breaks through the austerity; the UI frames it like physical film stock, not glass cards.\n\nEvery migrated route (home, gallery, gallery detail, news, about, sign-in, sign-up) shares one surface language. Section labels speak bench vocabulary — CAPTION WINDOW, RECENT SELECTS, HUNG TRIMS, ADJACENT FRAMES — and the shell wraps all pages in perforated film rails above the nav and above the footer.",
+    "keyCharacteristics": [
+      "True black (#000000) canvas with fixed film-grain overlay at 12% opacity",
+      "Flag orange (#e85d04) as the sole chromatic accent — rails, tape flags, CTAs, active states, dates",
+      "Barlow Condensed throughout; uppercase labels with wide letter-spacing via .label-caps",
+      "Perforated film edges, flagged frames with orange tape, horizontal film-strip rails, hung-trim news cards",
+      "Sharp rectangular geometry — 2px white borders, zero border-radius on interactive surfaces",
+      "Shell: 56px nav with orange bottom rule, 52px footer, max-w-6xl content column",
+      "No icon library on migrated pages; meaning carried by type, borders, and bench metaphors"
+    ],
+    "rules": [
+      {
+        "name": "The Flag Orange Rule",
+        "body": "#e85d04 is the only chromatic accent across migrated surfaces. Reserve it for selection, rails, tape, CTAs, and emphasis — roughly one-third of visible UI ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The True Black Rule",
+        "body": "Backgrounds stay #000000. Depth comes from photography, grain, and borders — never gray page fills or glass translucency stacks.",
+        "section": "colors"
+      },
+      {
+        "name": "The Opacity Hierarchy Rule",
+        "body": "Differentiate supporting copy with white opacity steps (/80, /60, /50, /40) — not text-gray-* utilities.",
+        "section": "colors"
+      },
+      {
+        "name": "The Barlow-Only Rule",
+        "body": "No secondary typeface. Weight, case, and tracking create hierarchy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Bench Label Rule",
+        "body": "Section landmarks and navigation use .label-caps uppercase with wide tracking. Content titles within sections use bold uppercase at larger sizes without the label preset.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Bench Rule",
+        "body": "Cards and panels are flat black with 2px borders. No drop shadows on migrated surfaces.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Grain Always Rule",
+        "body": "The film-grain overlay stays active on every page; it is ambient texture, not a hero-only effect.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do frame today's APOD in a film-window with perforated edges and an orange tape flag.",
+      "Do use flag orange for rails, section kickers, active frame states, and primary CTAs.",
+      "Do keep all migrated surfaces on true black with 2px white structural borders and square corners.",
+      "Do use .label-caps for navigation, section labels, dates, and form labels.",
+      "Do structure home as bench workflow: flagged select → caption window → strip → hung trims.",
+      "Do maintain the film-grain overlay and perforated shell rails on every page.",
+      "Do use max-w-prose on long explanatory copy for comfortable reading measure."
+    ],
+    "donts": [
+      "Don't use border-radius, glass blur, or drop shadows on new migrated surfaces.",
+      "Don't introduce accent colors beyond flag orange (except photography itself).",
+      "Don't use icon libraries or glyph decorations on migrated pages — the bench metaphor carries wayfinding.",
+      "Don't use text-gray-* utilities — use white opacity steps.",
+      "Don't revert to the prior Orbitron/violet observatory glass system on migrated routes.",
+      "Don't stack deprioritized legacy sections (missions, timeline, community) on the home bench."
+    ]
+  }
+}

@@ -1,26 +1,29 @@
-import { dbConnect } from "@/dbConfig/dbConfig";
-import Apod from "@/models/apodModel";
-import axios from "axios";
 import { NextResponse } from "next/server";
-
-await dbConnect();
+import axios from "axios";
+import { getNasaApiKey, normalizeApod } from "@/lib/nasa";
+import { getApodById } from "@/lib/apodService";
 
 export async function GET(req, { params }) {
-    const { date } = params;
-    console.log(date);
+  const { date } = await params;
 
-    const apod = await Apod.findOne({ date });
-    console.log(apod);
-
-    if (!apod) {
-        let response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NEXT_PUBLIC_NASA_API}&date=${date}`);
-        const newApod = response.data;
-        console.log(newApod);
-
-        const newApodDoc = new Apod(newApod);
-        await newApodDoc.save();
-        return NextResponse.json(newApod);
+  try {
+    const cached = await getApodById(date);
+    if (cached) {
+      return NextResponse.json(cached);
     }
 
-    return NextResponse.json(apod);
+    const apiKey = getNasaApiKey();
+    const response = await axios.get("https://api.nasa.gov/planetary/apod", {
+      params: { api_key: apiKey, date },
+      timeout: 15000,
+    });
+
+    return NextResponse.json(normalizeApod(response.data, date));
+  } catch (error) {
+    console.error("apod by date error:", error?.response?.data || error.message);
+    return NextResponse.json(
+      { error: "APOD not found for that date." },
+      { status: 404 }
+    );
+  }
 }

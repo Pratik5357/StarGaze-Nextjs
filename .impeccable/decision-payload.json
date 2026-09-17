@@ -1,0 +1,116 @@
+{
+  "title": "Choose Stargaze's new visual world",
+  "question": "The roll assigned Cosmic Cinema Title Card. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Cosmic Cinema Title Card",
+      "kicker": "THE ROLL",
+      "lineage": "1960s–80s sci-fi title sequences and Criterion film stills",
+      "thesis": "Today's APOD is the opening title still — letterboxed, monumental, with credits typography beneath.",
+      "palette": ["#0a0a0f", "#f4efe6", "#c9a227", "#2a4a6b"],
+      "materials": ["letterboxed film grain", "brass title plates", "velvet black auditorium"],
+      "viewport": "Full viewport letterboxed APOD still with gold date stamp and film-credit title stack; two brass ticket actions for Gallery and News.",
+      "risk": "Reads cinematic-generic if the photography doesn't dominate and the chrome stays quiet.",
+      "raised": [
+        {
+          "from": "challenger-akari",
+          "raise": "The still sits inside a warm auditorium glow at the edges, not a cold tech void."
+        },
+        {
+          "from": "challenger-cutting-bench",
+          "raise": "The gallery browses as a perforated film strip that snaps frame-to-frame by date."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fillmore-handbill-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fillmore-handbill.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Darkroom Contact Sheet",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "Astronomer's proof sheets and grease-pencil selects",
+      "thesis": "Today's APOD is the circled proof on a contact sheet; the archive is the rest of the roll.",
+      "palette": ["#1a1410", "#e8d4a8", "#c44b2a", "#f5f0e8"],
+      "materials": ["red-safe amber glow", "grease pencil marks", "film grain"],
+      "viewport": "Horizontal contact sheet with today's frame circled in red pencil; darkroom lamp warmth at the margins.",
+      "risk": "Also the direction most runs in this category land on — photography portals often default to darkroom metaphors.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-wax-pack",
+      "label": "Wax Pack Card Stack",
+      "kicker": "CHALLENGER",
+      "verdict": "competitive",
+      "lineage": "Vintage baseball card wax packs",
+      "thesis": "Each APOD is a collectible card — portrait front, explanation on the stat back; gallery deals the stack.",
+      "palette": ["#f2ece0", "#1e3a5f", "#b91c1c", "#2d2d2d"],
+      "materials": ["team-color borders", "gum-gray card backs", "rookie gold flag"],
+      "viewport": "Today's card dealt face-up with team border; flip reveals explanation stats; wax seal on archive entry.",
+      "case": "Fuses cleanly: each day is a collectible; holds identification for casual browsers, loses on gravitas for the hero image.",
+      "risk": "Playful tone can undercut the awe of deep-space photography.",
+      "comp": ".impeccable/mocks/decision/challenger-wax-pack.webp",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-wax-pack-card-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/pop-culture-shelf-wax-pack-card.webp"
+    },
+    {
+      "id": "challenger-cutting-bench",
+      "label": "Film Cutting Bench",
+      "kicker": "CHALLENGER",
+      "verdict": "competitive",
+      "lineage": "Analog film editing benches",
+      "thesis": "APOD dates string along a perforated select rail; today's frame is flagged with orange tape.",
+      "palette": ["#000000", "#e85d04", "#ffffff"],
+      "materials": ["flag orange on grain", "grease-pencil crosses", "perforation pitch"],
+      "viewport": "Horizontal film strip rail across the viewport with today's frame flagged; hung trims below for news.",
+      "case": "Fuses well for chronological browsing; holds product clarity for the archive, loses on warmth for first-time wonder.",
+      "risk": "Brutalist orange-on-black can feel editorial-cold without the photography breaking through.",
+      "comp": ".impeccable/mocks/decision/challenger-cutting-bench.webp",
+      "hero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp"
+    },
+    {
+      "id": "challenger-akari",
+      "label": "Akari Light Sculpture",
+      "kicker": "CHALLENGER",
+      "verdict": "declined",
+      "lineage": "Noguchi washi lantern workshops",
+      "palette": ["#f5efe0", "#c4a574", "#2a2520", "#c43c2e"],
+      "materials": ["washi diffusion", "bamboo ribs", "candlelit ivory"],
+      "case": "Fuses poorly: the lantern form competes with the photograph for attention.",
+      "kept": "Warm interior glow that makes the image feel exhibited, not uploaded.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-akari-light-sculpture-hero.webp"
+    },
+    {
+      "id": "challenger-ikeda",
+      "label": "Data Sublime Field",
+      "kicker": "CHALLENGER",
+      "verdict": "declined",
+      "lineage": "Ryoji Ikeda datamatics installations",
+      "palette": ["#000000", "#ffffff"],
+      "materials": ["barcode columns", "hairline rules", "frame inversion"],
+      "case": "Fuses poorly: pure data aesthetic erases the emotional pull of NASA photography.",
+      "kept": "Ruthless typographic discipline and zero decorative chrome.",
+      "hero": "https://impeccable.style/worlds/cards/ikeda-datamatics-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "Dark photography portal — full-bleed hero, card grid, minimal nav. Executed at full craft.",
+    "palette": ["#02040a", "#4da3ff", "#f4f7fb"],
+    "materials": ["clean grid", "NASA photography", "subtle gradient"],
+    "viewport": "Today's image hero left, headline right, gallery cards below — the arrangement visitors expect.",
+    "risk": "Indistinguishable from every other space imagery app.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

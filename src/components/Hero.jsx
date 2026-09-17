@@ -1,59 +1,93 @@
-"use client"; 
+"use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useApod } from "@/context/ApodContext";
 
-const Hero = () => {
-  const texts = [
-    "Unveiling the Universe’s Secrets....",
-    "A New Cosmic Wonder Every Day.",
-    "Your Window to the Stars.",
-  ];
-  
-  const [index, setIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [charIndex, setCharIndex] = useState(0);
+function getImageSrc(apod) {
+  if (!apod) return null;
+  if (apod.media_type === "image") return apod.hdurl || apod.url;
+  return null;
+}
 
-  useEffect(() => {
-    if (charIndex < texts[index].length) {
-      const interval = setInterval(() => {
-        setDisplayText((prev) => prev + texts[index][charIndex]);
-        setCharIndex((prev) => prev + 1);
-      }, 100);
-
-      return () => clearInterval(interval);
-    } else {
-      // Wait 2s, then reset for the next text
-      const timeout = setTimeout(() => {
-        setDisplayText(""); 
-        setCharIndex(0);
-        setIndex((prevIndex) => (prevIndex + 1) % texts.length);
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [charIndex, index, texts]);
+export default function Hero() {
+  const { todayApod, loading, error } = useApod();
+  const imageSrc = getImageSrc(todayApod);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center text-center text-white overflow-hidden bg-transparent selection:text-[#A294F9] selection:bg-white">
-      {/* Background */}
-      <div className="absolute inset-0 bg-cover bg-center opacity-40"></div>
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+    <section className="px-4 md:px-10 pt-8 md:pt-12 pb-10">
+      <div className="max-w-6xl mx-auto">
+        <div className="rail-line mb-6" aria-hidden />
 
-      {/* Content */}
-      <div className="relative z-10">
-        <h1 className="text-4xl md:text-6xl font-bold selection:text-[#A294F9] selection:bg-white">
-          Explore the Cosmos, One Picture at a Time.
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-[#A294F9] min-h-[30px] selection:text-white selection:bg-[#A294F9]">
-          {displayText}
-        </p>
-        <button className="mt-6 px-6 py-3 bg-[#A294F9] hover:bg-[#CDC1FF] text-black font-semibold rounded-lg shadow-lg transition-all duration-300">
-          Start Your Journey
-        </button>
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start">
+          <div className="film-window">
+            <div className="tape-flag tape-flag-active" aria-hidden />
+            <div className="perf-edge" aria-hidden />
+            <div className="relative aspect-[16/10] bg-black">
+              {loading && !imageSrc && (
+                <div className="absolute inset-0 flex items-center justify-center label-caps text-white/50 bg-black">
+                  LOADING FRAME…
+                </div>
+              )}
+              {imageSrc && (
+                <Image
+                  src={imageSrc}
+                  alt={todayApod?.title || "Today's astronomy picture"}
+                  fill
+                  priority
+                  unoptimized
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                />
+              )}
+              {!loading && todayApod?.media_type === "video" && todayApod?.url && (
+                <iframe
+                  src={todayApod.url}
+                  title={todayApod.title}
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              )}
+            </div>
+            <div className="perf-edge perf-edge-bottom" aria-hidden />
+          </div>
+
+          <div className="flex flex-col gap-6 text-white">
+            <div>
+              <p className="label-caps text-[#e85d04] mb-2">FLAGGED FRAME</p>
+              <h1 className="text-2xl md:text-3xl font-bold uppercase leading-tight tracking-tight">
+                {todayApod?.title || "Awaiting today's select"}
+              </h1>
+              {todayApod?.date && (
+                <p className="mt-3 label-caps text-white/60">{todayApod.date}</p>
+              )}
+            </div>
+
+            {todayApod?.explanation && (
+              <p className="text-base leading-relaxed text-white/80 line-clamp-6 max-w-prose">
+                {todayApod.explanation}
+              </p>
+            )}
+
+            {error && <p className="text-sm text-[#e85d04]">{error}</p>}
+
+            <div className="flex flex-col gap-3 mt-2">
+              <Link
+                href="/gallery"
+                className="label-caps text-center py-3 bg-[#e85d04] text-black font-bold hover:bg-[#ff7a1a] transition-colors"
+              >
+                SCRUB ARCHIVE
+              </Link>
+              <Link
+                href="/news"
+                className="label-caps text-center py-3 border-2 border-white text-white hover:border-[#e85d04] hover:text-[#e85d04] transition-colors"
+              >
+                HEADLINES
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Hero;
+}

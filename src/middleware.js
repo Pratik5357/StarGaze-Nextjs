@@ -1,26 +1,37 @@
 import { NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { verifyAdminSessionToken, ADMIN_COOKIE } from "@/lib/adminSession";
 
 export async function middleware(req) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  const url = req.nextUrl.clone();
+  const { pathname } = req.nextUrl;
+  const token = req.cookies.get(ADMIN_COOKIE)?.value;
+  const session = await verifyAdminSessionToken(token);
 
-  // If no token, redirect to sign-in (except for public routes)
-  if (!token && url.pathname !== "/sign-in" && url.pathname !== "/signup") {
-    url.pathname = "/sign-in";
-    return NextResponse.redirect(url);
+  if (pathname === "/admin/login") {
+    if (session) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/admin";
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
   }
 
-  // If token exists, allow access
+  if (pathname.startsWith("/admin")) {
+    if (!session) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/admin/login";
+      return NextResponse.redirect(url);
+    }
+  }
+
+  if (pathname.startsWith("/api/admin") && pathname !== "/api/admin/login") {
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+  }
+
   return NextResponse.next();
 }
 
-// Protect only the routes that require authentication
 export const config = {
-  matcher: [
-    "/sign-in",
-    "/sign-up",
-    "/gallery/:path*",
-    "/news",
-  ],
+  matcher: ["/admin", "/admin/:path*", "/api/admin/:path*"],
 };
